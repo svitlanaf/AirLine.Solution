@@ -1,0 +1,17 @@
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.csprojAssemblyReference.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.csproj.CoreCompileInputs.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.AssemblyInfoInputs.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.AssemblyInfo.cs
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.Tests.deps.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.Tests.runtimeconfig.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.Tests.runtimeconfig.dev.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.Tests.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.Tests.pdb
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/bin/Debug/netcoreapp2.2/AirLine.pdb
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.csproj.CopyComplete
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine.Tests/obj/Debug/netcoreapp2.2/AirLine.Tests.pdb
