@@ -12,7 +12,7 @@ namespace AirLine.Tests
         public void Dispose()
         {
         City.ClearAll();
-        // Flight.ClearAll();
+        Flight.DeleteAll();
         }
 
         public CityTest()
@@ -29,5 +29,14 @@ namespace AirLine.Tests
        List<City> testList = new List<City>{testCity};
        CollectionAssert.AreEqual(testList, result);
        }
+
+       [TestMethod]
+        public void Find_ReturnsCityInDatabase_City()
+        {
+        City testCity = new City("New York");
+        testCity.Save();
+        City foundCity = City.Find(testCity.GetId());
+        Assert.AreEqual(testCity, foundCity);
+        }
      }
    }

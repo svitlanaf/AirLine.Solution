@@ -186,14 +186,14 @@ namespace AirLine.Models
 }
 
 
-public List<City> GetCitiies()
+public List<City> GetCities()
 {
 	MySqlConnection conn = DB.Connection();
 	conn.Open();
 	var cmd = conn.CreateCommand() as MySqlCommand;
 	cmd.CommandText = @"SELECT city_id FROM cities_flights WHERE flight_id = @flightId;";
 	MySqlParameter flightIdParameter = new MySqlParameter();
-	flightIdParameter.ParameterName = "@itemId";
+	flightIdParameter.ParameterName = "@flightId";
 	flightIdParameter.Value = _id;
 	cmd.Parameters.Add(flightIdParameter);
 	var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -240,11 +240,11 @@ public void AddCity (City newCity)
   var cmd = conn.CreateCommand() as MySqlCommand;
   cmd.CommandText = @"INSERT INTO cities_flights (city_id, flight_id) VALUES (@CityId, @FlightId);";
   MySqlParameter city_id = new MySqlParameter();
-  city_id.ParameterName = "@CategoryId";
+  city_id.ParameterName = "@CityId";
   city_id.Value = newCity.GetId();
   cmd.Parameters.Add(city_id);
   MySqlParameter flight_id = new MySqlParameter();
-  flight_id.ParameterName = "@ItemId";
+  flight_id.ParameterName = "@FlightId";
   flight_id.Value = _id;
   cmd.Parameters.Add(flight_id);
   cmd.ExecuteNonQuery();
@@ -273,6 +273,48 @@ public void Delete()
 		conn.Close();
 	}
 }
+
+public void Edit(string newStatus)
+  {
+  	MySqlConnection conn = DB.Connection();
+  	conn.Open();
+  	var cmd = conn.CreateCommand() as MySqlCommand;
+  	// cmd.CommandText = @"UPDATE flight SET departureTime = @newDepartureTime WHERE id = @searchId;";
+  	// cmd.CommandText = @"UPDATE flight SET departureCity = @newDepartureCity WHERE id = @searchId;";
+    cmd.CommandText = @"UPDATE flight SET status = @newStatus WHERE id = @searchId;";
+  	MySqlParameter searchId = new MySqlParameter();
+  	searchId.ParameterName = "@searchId";
+  	searchId.Value = _id;
+  	cmd.Parameters.Add(searchId);
+
+  	// MySqlParameter departureTime = new MySqlParameter();
+  	// departureTime.ParameterName = "@newDepartureTime";
+  	// departureTime.Value = newDepartureTime;
+  	// cmd.Parameters.Add(departureTime);
+    //
+  	// MySqlParameter departureCity = new MySqlParameter();
+  	// departureCity.ParameterName = "@newDepartureCity";
+  	// departureCity.Value = newDepartureCity;
+  	// cmd.Parameters.Add(departureCity);
+  	// cmd.ExecuteNonQuery();
+
+    MySqlParameter status = new MySqlParameter();
+  	status.ParameterName = "@newStatus";
+  	status.Value = newStatus;
+  	cmd.Parameters.Add(status);
+  	cmd.ExecuteNonQuery();
+
+  	_status = newStatus;
+
+  	conn.Close();
+  	if (conn != null)
+  	{
+  		conn.Dispose();
+  	}
+  }
+
+
+
 
 }
 }
