@@ -1,0 +1,14 @@
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.csprojAssemblyReference.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.csproj.CoreCompileInputs.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.RazorAssemblyInfo.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.RazorAssemblyInfo.cs
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.AssemblyInfoInputs.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.AssemblyInfo.cs
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/bin/Debug/netcoreapp2.2/AirLine.deps.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/bin/Debug/netcoreapp2.2/AirLine.runtimeconfig.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/bin/Debug/netcoreapp2.2/AirLine.runtimeconfig.dev.json
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/bin/Debug/netcoreapp2.2/AirLine.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/bin/Debug/netcoreapp2.2/AirLine.pdb
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.RazorTargetAssemblyInfo.cache
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.dll
+/Users/Guest/Desktop/AirLinePlanner.Solution/AirLine/obj/Debug/netcoreapp2.2/AirLine.pdb
