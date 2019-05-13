@@ -42,37 +42,55 @@ namespace AirLine.Tests
       }
 
       [TestMethod]
-    public void GetCities_ReturnsAllFlightCities_CityList()
-    {
-      Flight testFlight = new Flight(new DateTime(1991,1,1), "London", "on time");
-      testFlight.Save();
-      City testCity1 = new City("Kiev");
-      testCity1.Save();
-      City testCity2 = new City("Paris");
-      testCity2.Save();
-      testFlight.AddCity(testCity1);
-      List<City> result = testFlight.GetCities();
-      List<City> testList = new List<City> {testCity1};
-      CollectionAssert.AreEqual(testList, result);
-    }
+      public void GetCities_ReturnsAllFlightCities_CityList()
+      {
+        Flight testFlight = new Flight(new DateTime(1991,1,1), "London", "on time");
+        testFlight.Save();
+        City testCity1 = new City("Kiev");
+        testCity1.Save();
+        City testCity2 = new City("Paris");
+        testCity2.Save();
+        testFlight.AddCity(testCity1);
+        List<City> result = testFlight.GetCities();
+        List<City> testList = new List<City> {testCity1};
+        CollectionAssert.AreEqual(testList, result);
+      }
 
-    // [TestMethod]
-    // public void AddCategory_AddsCategoryToItem_CategoryList()
-    // {
-    //   //Arrange
-    //   Item testItem = new Item("Mow the lawn");
-    //   testItem.Save();
-    //   Category testCategory = new Category("Home stuff");
-    //   testCategory.Save();
-    //
-    //   //Act
-    //   testItem.AddCategory(testCategory);
-    //
-    //   List<Category> result = testItem.GetCategories();
-    //   List<Category> testList = new List<Category>{testCategory};
-    //
-    //   //Assert
-    //   CollectionAssert.AreEqual(testList, result);
-    // }
+      [TestMethod]
+      public void AddCity_AddsCityToFlight_CityList()
+      {
+        Flight testFlight = new Flight(new DateTime(1991,1,1), "London", "on time");
+        testFlight.Save();
+        City testCity = new City("London");
+        testCity.Save();
+        testFlight.AddCity(testCity);
+        List<City> result = testFlight.GetCities();
+        List<City> testList = new List<City>{testCity};
+        CollectionAssert.AreEqual(testList, result);
+      }
+
+      [TestMethod]
+      public void OrderFlights_SortsFlightsByCityAndByDepartureTimeDifferentCities_FlightList()
+      {
+        Flight testFlight1 = new Flight(new DateTime(1991,1,1), "London", "on time");
+        testFlight1.Save();
+        Flight testFlight2 = new Flight(new DateTime(1991,1,1), "Paris", "on time");
+        testFlight2.Save();
+        List<Flight> newList = Flight.Sort();
+        List<Flight> expectedList = new List<Flight> {testFlight1, testFlight2};
+        CollectionAssert.AreEqual(newList, expectedList);
+      }
+
+      [TestMethod]
+      public void OrderFlights_SortsFlightsByCityAndByDepartureTimeDifferentTime_FlightList()
+      {
+        Flight testFlight1 = new Flight(new DateTime(1991,1,1), "London", "on time");
+        testFlight1.Save();
+        Flight testFlight2 = new Flight(new DateTime(2000,1,1), "London", "on time");
+        testFlight2.Save();
+        List<Flight> newList = Flight.Sort();
+        List<Flight> expectedList = new List<Flight> {testFlight1, testFlight2};
+        CollectionAssert.AreEqual(newList, expectedList);
+      }
 }
 }

@@ -150,169 +150,204 @@ namespace AirLine.Models
   	}
   }
 
-  public static Flight Find (int id)
-{
-
-	MySqlConnection conn = DB.Connection();
-	conn.Open();
-	var cmd = conn.CreateCommand() as MySqlCommand;
-	cmd.CommandText = @"SELECT * FROM flight WHERE id = (@searchId);";
-	MySqlParameter idParameter = new MySqlParameter();
-	idParameter.ParameterName = "@searchId";
-	idParameter.Value = id;
-	cmd.Parameters.Add(idParameter);
-	var rdr = cmd.ExecuteReader() as MySqlDataReader;
-	int flightId=0;
-
-	DateTime flightDepartureTime = new DateTime();
-  string flightDepartureCity = "";
-  string flightStatus = "";
-
-	while(rdr.Read())
-	{
-    flightId = rdr.GetInt32(0);
-    flightDepartureTime = rdr.GetDateTime(1);
-    flightDepartureCity = rdr.GetString(2);
-    flightStatus = rdr.GetString(3);
-	}
-	Flight foundFlight = new Flight (flightDepartureTime,flightDepartureCity, flightStatus, flightId);
-
-	conn.Close();
-	if(conn != null)
-	{
-		conn.Dispose();
-	}
-	return foundFlight;
-}
-
-
-public List<City> GetCities()
-{
-	MySqlConnection conn = DB.Connection();
-	conn.Open();
-	var cmd = conn.CreateCommand() as MySqlCommand;
-	cmd.CommandText = @"SELECT city_id FROM cities_flights WHERE flight_id = @flightId;";
-	MySqlParameter flightIdParameter = new MySqlParameter();
-	flightIdParameter.ParameterName = "@flightId";
-	flightIdParameter.Value = _id;
-	cmd.Parameters.Add(flightIdParameter);
-	var rdr = cmd.ExecuteReader() as MySqlDataReader;
-	List<int> cityIds = new List <int> {
-	};
-	while (rdr.Read())
-	{
-		int cityId = rdr.GetInt32(0);
-		cityIds.Add(cityId);
-	}
-	rdr.Dispose();
-	List<City> cities = new List<City> {
-	};
-	foreach (int cityId in cityIds)
-	{
-		var cityQuery = conn.CreateCommand() as MySqlCommand;
-		cityQuery.CommandText = @"SELECT * FROM city WHERE id = @CityId;";
-		MySqlParameter cityIdParameter = new MySqlParameter();
-		cityIdParameter.ParameterName = "@CityId";
-		cityIdParameter.Value = cityId;
-		cityQuery.Parameters.Add(cityIdParameter);
-		var cityQueryRdr = cityQuery.ExecuteReader() as MySqlDataReader;
-		while(cityQueryRdr.Read())
-		{
-			int thisCityId = cityQueryRdr.GetInt32(0);
-			string cityName = cityQueryRdr.GetString(1);
-			City foundCity = new City(cityName, thisCityId);
-			cities.Add(foundCity);
-		}
-		cityQueryRdr.Dispose();
-	}
-  conn.Close();
-	if(conn != null)
-	{
-		conn.Dispose();
-	}
-	return cities;
-}
-
-public void AddCity (City newCity)
-{
-  MySqlConnection conn = DB.Connection();
-  conn.Open();
-  var cmd = conn.CreateCommand() as MySqlCommand;
-  cmd.CommandText = @"INSERT INTO cities_flights (city_id, flight_id) VALUES (@CityId, @FlightId);";
-  MySqlParameter city_id = new MySqlParameter();
-  city_id.ParameterName = "@CityId";
-  city_id.Value = newCity.GetId();
-  cmd.Parameters.Add(city_id);
-  MySqlParameter flight_id = new MySqlParameter();
-  flight_id.ParameterName = "@FlightId";
-  flight_id.Value = _id;
-  cmd.Parameters.Add(flight_id);
-  cmd.ExecuteNonQuery();
-
-
-  conn.Close();
-  if(conn != null)
+    public static Flight Find (int id)
   {
-    conn.Dispose();
+
+  	MySqlConnection conn = DB.Connection();
+  	conn.Open();
+  	var cmd = conn.CreateCommand() as MySqlCommand;
+  	cmd.CommandText = @"SELECT * FROM flight WHERE id = (@searchId);";
+  	MySqlParameter idParameter = new MySqlParameter();
+  	idParameter.ParameterName = "@searchId";
+  	idParameter.Value = id;
+  	cmd.Parameters.Add(idParameter);
+  	var rdr = cmd.ExecuteReader() as MySqlDataReader;
+  	int flightId=0;
+
+  	DateTime flightDepartureTime = new DateTime();
+    string flightDepartureCity = "";
+    string flightStatus = "";
+
+  	while(rdr.Read())
+  	{
+      flightId = rdr.GetInt32(0);
+      flightDepartureTime = rdr.GetDateTime(1);
+      flightDepartureCity = rdr.GetString(2);
+      flightStatus = rdr.GetString(3);
+  	}
+  	Flight foundFlight = new Flight (flightDepartureTime,flightDepartureCity, flightStatus, flightId);
+
+  	conn.Close();
+  	if(conn != null)
+  	{
+  		conn.Dispose();
+  	}
+  	return foundFlight;
   }
-}
 
-public void Delete()
-{
-	MySqlConnection conn = DB.Connection();
-	conn.Open();
-	var cmd = conn.CreateCommand() as MySqlCommand;
-	cmd.CommandText = @"DELETE FROM flights WHERE id = @FlightId; DELETE FROM cities_items WHERE flight_id = @FlightId;";
-	MySqlParameter flightIdParameter = new MySqlParameter();
-	flightIdParameter.ParameterName = "@ItemId";
-	flightIdParameter.Value = this.GetId();
-	cmd.Parameters.Add(flightIdParameter);
-	cmd.ExecuteNonQuery();
-	if(conn != null)
-	{
-		conn.Close();
-	}
-}
 
-public void Edit(string newStatus)
+  public List<City> GetCities()
   {
   	MySqlConnection conn = DB.Connection();
   	conn.Open();
   	var cmd = conn.CreateCommand() as MySqlCommand;
-  	// cmd.CommandText = @"UPDATE flight SET departureTime = @newDepartureTime WHERE id = @searchId;";
-  	// cmd.CommandText = @"UPDATE flight SET departureCity = @newDepartureCity WHERE id = @searchId;";
-    cmd.CommandText = @"UPDATE flight SET status = @newStatus WHERE id = @searchId;";
-  	MySqlParameter searchId = new MySqlParameter();
-  	searchId.ParameterName = "@searchId";
-  	searchId.Value = _id;
-  	cmd.Parameters.Add(searchId);
-
-  	// MySqlParameter departureTime = new MySqlParameter();
-  	// departureTime.ParameterName = "@newDepartureTime";
-  	// departureTime.Value = newDepartureTime;
-  	// cmd.Parameters.Add(departureTime);
-    //
-  	// MySqlParameter departureCity = new MySqlParameter();
-  	// departureCity.ParameterName = "@newDepartureCity";
-  	// departureCity.Value = newDepartureCity;
-  	// cmd.Parameters.Add(departureCity);
-  	// cmd.ExecuteNonQuery();
-
-    MySqlParameter status = new MySqlParameter();
-  	status.ParameterName = "@newStatus";
-  	status.Value = newStatus;
-  	cmd.Parameters.Add(status);
-  	cmd.ExecuteNonQuery();
-
-  	_status = newStatus;
-
-  	conn.Close();
-  	if (conn != null)
+  	cmd.CommandText = @"SELECT city_id FROM cities_flights WHERE flight_id = @flightId;";
+  	MySqlParameter flightIdParameter = new MySqlParameter();
+  	flightIdParameter.ParameterName = "@flightId";
+  	flightIdParameter.Value = _id;
+  	cmd.Parameters.Add(flightIdParameter);
+  	var rdr = cmd.ExecuteReader() as MySqlDataReader;
+  	List<int> cityIds = new List <int> {
+  	};
+  	while (rdr.Read())
+  	{
+  		int cityId = rdr.GetInt32(0);
+  		cityIds.Add(cityId);
+  	}
+  	rdr.Dispose();
+  	List<City> cities = new List<City> {
+  	};
+  	foreach (int cityId in cityIds)
+  	{
+  		var cityQuery = conn.CreateCommand() as MySqlCommand;
+  		cityQuery.CommandText = @"SELECT * FROM city WHERE id = @CityId;";
+  		MySqlParameter cityIdParameter = new MySqlParameter();
+  		cityIdParameter.ParameterName = "@CityId";
+  		cityIdParameter.Value = cityId;
+  		cityQuery.Parameters.Add(cityIdParameter);
+  		var cityQueryRdr = cityQuery.ExecuteReader() as MySqlDataReader;
+  		while(cityQueryRdr.Read())
+  		{
+  			int thisCityId = cityQueryRdr.GetInt32(0);
+  			string cityName = cityQueryRdr.GetString(1);
+  			City foundCity = new City(cityName, thisCityId);
+  			cities.Add(foundCity);
+  		}
+  		cityQueryRdr.Dispose();
+  	}
+    conn.Close();
+  	if(conn != null)
   	{
   		conn.Dispose();
   	}
+  	return cities;
   }
 
+
+  public void AddCity (City newCity)
+  {
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+    var cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"INSERT INTO cities_flights (city_id, flight_id) VALUES (@CityId, @FlightId);";
+    MySqlParameter city_id = new MySqlParameter();
+    city_id.ParameterName = "@CityId";
+    city_id.Value = newCity.GetId();
+    cmd.Parameters.Add(city_id);
+    MySqlParameter flight_id = new MySqlParameter();
+    flight_id.ParameterName = "@FlightId";
+    flight_id.Value = _id;
+    cmd.Parameters.Add(flight_id);
+    cmd.ExecuteNonQuery();
+
+
+    conn.Close();
+    if(conn != null)
+    {
+      conn.Dispose();
+    }
+  }
+
+
+  public void Delete()
+  {
+  	MySqlConnection conn = DB.Connection();
+  	conn.Open();
+  	var cmd = conn.CreateCommand() as MySqlCommand;
+  	cmd.CommandText = @"DELETE FROM flights WHERE id = @FlightId; DELETE FROM cities_items WHERE flight_id = @FlightId;";
+  	MySqlParameter flightIdParameter = new MySqlParameter();
+  	flightIdParameter.ParameterName = "@ItemId";
+  	flightIdParameter.Value = this.GetId();
+  	cmd.Parameters.Add(flightIdParameter);
+  	cmd.ExecuteNonQuery();
+  	if(conn != null)
+  	{
+  		conn.Close();
+  	}
+  }
+
+
+  public void Edit(string newStatus)
+    {
+    	MySqlConnection conn = DB.Connection();
+    	conn.Open();
+    	var cmd = conn.CreateCommand() as MySqlCommand;
+    	// cmd.CommandText = @"UPDATE flight SET departureTime = @newDepartureTime WHERE id = @searchId;";
+    	// cmd.CommandText = @"UPDATE flight SET departureCity = @newDepartureCity WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE flight SET status = @newStatus WHERE id = @searchId;";
+    	MySqlParameter searchId = new MySqlParameter();
+    	searchId.ParameterName = "@searchId";
+    	searchId.Value = _id;
+    	cmd.Parameters.Add(searchId);
+
+    	// MySqlParameter departureTime = new MySqlParameter();
+    	// departureTime.ParameterName = "@newDepartureTime";
+    	// departureTime.Value = newDepartureTime;
+    	// cmd.Parameters.Add(departureTime);
+      //
+    	// MySqlParameter departureCity = new MySqlParameter();
+    	// departureCity.ParameterName = "@newDepartureCity";
+    	// departureCity.Value = newDepartureCity;
+    	// cmd.Parameters.Add(departureCity);
+    	// cmd.ExecuteNonQuery();
+
+      MySqlParameter status = new MySqlParameter();
+    	status.ParameterName = "@newStatus";
+    	status.Value = newStatus;
+    	cmd.Parameters.Add(status);
+    	cmd.ExecuteNonQuery();
+
+    	_status = newStatus;
+
+    	conn.Close();
+    	if (conn != null)
+    	{
+    		conn.Dispose();
+    	}
+    }
+
+
+      public static List<Flight> Sort()
+    {
+    	List<Flight> allFlights = new List<Flight> {
+    	};
+
+    	MySqlConnection conn = DB.Connection();
+    	conn.Open();
+    	MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    	cmd.CommandText = @"SELECT * FROM flight ORDER BY departure_city, departure_time;";
+    	MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+    	while (rdr.Read())
+    	{
+        int thisFlightId = rdr.GetInt32(0);
+    		DateTime flightDepartureTime = rdr.GetDateTime(1);
+    		string flightDepartureCity = rdr.GetString(2);
+        string flightStatus = rdr.GetString(3);
+    		Flight newFlight = new Flight (flightDepartureTime, flightDepartureCity, flightStatus, thisFlightId);
+    		allFlights.Add(newFlight);
+    	}
+
+    	conn.Close();
+
+    	if (conn != null)
+    	{
+    		conn.Dispose();
+    	}
+
+    	return allFlights;
+
+    }
 
 
 
